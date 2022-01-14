@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2 Exercises</title>
+    <script src="week2.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class = "mainDiv">
+        <h1>Week 2 - JS Novice to Ninja Chapters 2, 3, 4</h1>
+        <h2>Exercises</h2>
+            <li><button onclick="quiz()" label="">Quiz Ninja</button></li>
+        <h2>Questions</h2>
+        <h3>Chapter 4</h3>
+        <p>
+            Does the <code>args</code> variable inside a function contain all arguments passed, or just those 
+            beyond the named arguments? Is that different when using the spread operator? So like: <br>
+            <code class="block">function myFunc(a, b, ...args){<br>
+                &nbsp;return args<br>}</code>
+            <br>
+            If we call it like <br>
+            <code>myFunc("A", "B", "C", "D");</code> <br>
+            does it return <code>["A", "B", "C", "D"]</code> or just <code>["C", "D"]</code>?
+        </p>
+        <p>
+            When using function expressions, are there any constraints to using a <code>const</code> to store a function
+            versus a <code>var</code>? Like in C++ a <code>const</code> function cannot mutate anyone's state (or 
+            at least the state of the object to which it belongs). Does Javascript do something similar, or is 
+            <code>const</code> only an indicator that the variable cannot later be reassigned a different function/value?
+        </p>
+        <p>
+            Is there a sort function that doesn't require a callback to correctly sort numbers? It seems totally
+            unnecessary to by default treat all array items as strings in a sort() function to me. If not,
+            is there a built-in callback for numeric sorting perhaps?
+        </p>
+    </div>
+</body>
+</html>
