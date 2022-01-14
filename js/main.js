@@ -8,8 +8,12 @@ const links = [
         url: "week1/exercises.js"
     },
     {
-        label: "Week 2 Code Exercises",
+        label: "Week 2 Reading & Exercises",
         url: "week2/exercises.html"
+    }, 
+    {
+        label: "Week 2 Team Activity",
+        url: "week2/teamactivity.html"
     }
 ]
 
@@ -18,7 +22,6 @@ function populateLinks(){
     links.forEach(link => {
         // linkList.innerHTML += "<li class='portfolioLink'>" + link.label + "</li>";
         linkList.innerHTML += `<li class='portfolioLink'><a href='${link.url}'>${link.label}</a></li>`;
-
     });
 }
 

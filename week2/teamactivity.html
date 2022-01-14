@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2 Team Activity</title>
+</head>
+<body>
+
+    <input type="number" id="numberOne">
+    <input type="number" id="numberTwo">
+    <input type="button" id="myButton" value="+" onclick="addNumbers()">
+    <!-- <input type="button" id="myButton" value="Add Up to Number One" onclick="getNumber()"> -->
+    <div id="myDiv">
+        
+    </div>
+    <script>
+        function myFunction(){
+            console.log("MyFunction was called");
+            let text = document.getElementById("numberTwo").value;
+            document.getElementById("myDiv").innerHTML = text;
+        }
+
+        function addNumbers(){
+            let numOne = Number(document.getElementById("numberOne").value);
+            let numTwo = Number(document.getElementById("numberTwo").value);
+            let result = numOne + numTwo;
+            console.log(result);
+            document.getElementById("myDiv").innerHTML = result;
+        }
+
+        function getNumber(){
+            // Gets called when the user presses the button.
+            let number = Number(document.getElementById("numberTwo").value);
+            
+            if(Number.isInteger(number)){
+                // User has entered a valid number
+                console.log("It's a number!");
+                let result = addUpTo(number);
+                document.getElementById("myDiv").innerHTML = result;
+            } else {
+                // Error Message
+                console.log("Not a number!");
+                document.getElementById("myDiv").innerHTML = 
+                "Please enter a number.";
+            }
+        }
+
+        function addUpTo(number){
+            var result = 0;
+            for (var i = number; i>0; i--){
+                console.log(i);
+                result += i;
+            }
+            return result;
+        }
+
+    </script>
+</body>
+</html>
