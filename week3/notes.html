@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 Notes | WDD330</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="mainDiv">
+        <h1>Week 3 - JS Novice to Ninja Chapters 5, 6, 7</h1>
+        <h2>Notes</h2>
+        <p>
+        <ul>
+            <li>Object literals are a powerful way of passing parameters into functions. 
+                They allow you to use unordered named parameters in JS functions as well as specify default 
+                values for them, which can be really handy. An example:
+                <pre><code class="block">
+function triathalon({run, bike, swim}){
+    if (run)
+        console.log(`I ran ${run} miles`);
+    if (bike)
+        console.log(`I biked ${bike} miles`);
+    if (swim)
+        console.log(`I swam ${swim} miles`);
+}
+triathalon({run: 4, bike: 30})
+triathalon({swim: 2, bike: 25})
+
+
+Console:
+> I ran 4 miles
+> I biked 30 miles
+> I biked 25 miles
+> I swam 2 miles
+                </code></pre>
+            </li>
+            <script>
+                function triathalon({run, bike, swim}){
+                        if (run)
+                            console.log(`I ran ${run} miles`);
+                        if (bike)
+                            console.log(`I biked ${bike} miles`);
+                        if (swim)
+                            console.log(`I swam ${swim} miles`);
+                }
+                triathalon({run: 4, bike: 30})
+                triathalon({swim: 2, bike: 25})
+            </script>
+        </ul>
+        </p>
+        
+    </div>
+</body>
+
+</html>
