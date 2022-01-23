@@ -14,7 +14,11 @@ const links = [
     {
         label: "Week 2 Team Activity",
         url: "week2/teamactivity.html"
-    }
+    },
+    {
+        label: "Week 3 Reading",
+        url: "week3/notes.html"
+    },
 ]
 
 function populateLinks(){
