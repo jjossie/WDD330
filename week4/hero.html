@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Form</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+
+<body>
+    <div class="mainDiv">
+        <form id='hero'>
+            <input type="text" name="heroName" id="heroName" autofocus placeholder="Your superhero name">
+
+            <p>Super Powers:</p>
+            <label for='flight'>Flight:
+                <input type='checkbox' id='flight' value='Flight' name='powers'><br>
+            </label>
+            <label for='strength'>Super Strength:
+                <input type='checkbox' id='strength' value='Strength' name='powers'><br>
+            </label>
+            <label for='speed'>Super Speed:
+                <input type='checkbox' id='speed' value='Super Speed' name='powers'><br>
+            </label>
+            <label for='energy'>Energy Blasts:
+                <input type='checkbox' id='energy' value='Energy Blasts' name='powers'><br>
+                </label>
+            <label for='telekinesis'>Telekinesis:
+                <input type='checkbox' id='telekinesis' value='Telekinesis' name='powers'><br>
+            </label>
+
+            <button type='submit'>Submit</button>
+        </form>
+        <script src="hero.js"></script>
+    </div>
+</body>
+
+</html>

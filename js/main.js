@@ -19,6 +19,10 @@ const links = [
         label: "Week 3 Reading",
         url: "week3/notes.html"
     },
+    {
+        label: "Week 4 Exercises",
+        url: "week4/exercises.html"
+    },
 ]
 
 function populateLinks(){

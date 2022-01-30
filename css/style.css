@@ -33,3 +33,6 @@ li{
     padding:5px;
     font-size: large;
 }
+/* input:only-of-type('checkbox'){
+    display:block;
+} */
