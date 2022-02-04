@@ -23,6 +23,10 @@ const links = [
         label: "Week 4 Exercises",
         url: "week4/exercises.html"
     },
+    {
+        label: "Week 5 Exercises",
+        url: "week5/exercises.html"
+    },
 ]
 
 function populateLinks(){
