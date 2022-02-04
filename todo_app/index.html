@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>To-Do List App</title>
+</head>
+<body>
+    <div id="content">
+        <h1>To-Dos</h1>
+        <div id="todo-list" class="box">
+            <ul id="todo-item-list">
+                <li class="todo-item box">
+                    <input type="checkbox" class="todo-check">
+                    <span class="todo-name">Task One</span>
+                    <button class="todo-delete">X</button>
+                </li>
+                <li class="todo-item box">
+                    <input type="checkbox" class="todo-check">
+                    <span class="todo-name">Task Two</span>
+                    <button class="todo-delete">X</button>
+                </li>
+                <li class="todo-item box">
+                    <input type="checkbox" class="todo-check">
+                    <span class="todo-name">Task Three</span>
+                    <button class="todo-delete">X</button>
+                </li>
+            </ul>
+            <div id="todo-list-footer">
+                <span class="todo-list-footer__desc">3 tasks left</span>
+                <button class="todo-list-footer__button" name="all" id="all">All</button>
+                <button class="todo-list-footer__button" name="active" id="active">Active</button>
+                <button class="todo-list-footer__button" name="completed" id="completed">Completed</button>
+            </div>
+        </div>
+        <div id="add-todo">
+            <form>
+                <input type="text" name="add-todo-text" id="add-todo-text">
+                <button type="submit">+</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
