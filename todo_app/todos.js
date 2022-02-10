@@ -6,6 +6,10 @@ class Task {
         this.completed = false;
     }
     static loadFromObject(simpleObject) {
+        // TODO null checking here
+        if (simpleObject === null){
+            return;
+        }
         var newTask = new Task();
         newTask.id = simpleObject.id;
         newTask.name = simpleObject.name;
@@ -75,8 +79,11 @@ export class TaskList {
         }
         task.delete();
         // JavaScript doesn't include a function to remove a specific item from a pushed array, apparently, so:
-        let index = this.tasks.indexOf(task);
-        this.tasks.splice(index, 1);
+        let taskIndex = this.tasks.indexOf(task);
+        this.tasks.splice(taskIndex, 1);
+        // Remove this ID from the list of IDs so we don't try to load it again
+        let idIndex = this.taskIds.indexOf(id);
+        this.taskIds.splice(idIndex, 1);
     }
     saveToStorage() {
         let storage = window.localStorage;
@@ -97,6 +104,7 @@ export class TaskList {
             console.log(`storageItem: ${storageItem}`);
             const newObject = JSON.parse(storageItem);
             console.log(newObject);
+            // TODO null checking here
             const newTask = Task.loadFromObject(newObject);
             this.tasks.push(newTask);
         });
@@ -105,6 +113,7 @@ export class TaskList {
         let taskListHTML = document.createElement("ul");
         taskListHTML.id = "todo-item-list";
         this.tasks.forEach((task) => {
+            // TODO null checking here
             taskListHTML.appendChild(task.render())
         })
         return taskListHTML;
