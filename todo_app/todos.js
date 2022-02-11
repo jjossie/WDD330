@@ -1,9 +1,10 @@
-class Task {
+export class Task {
     static nextId = 0;
     constructor(name) {
         this.id = ++Task.nextId;
         this.name = name;
         this.completed = false;
+        this.save();
     }
     static loadFromObject(simpleObject) {
         // TODO null checking here
@@ -28,12 +29,17 @@ class Task {
         let storage = window.localStorage;
         storage.setItem(this.id, JSON.stringify(this));
     }
-    delete() {
-        const taskHTML = document.getElementById(`${this.id}-task`);
+    delete(e) {
+        console.log(`deleting ${this.id}-task`);
+        // Delete it from localStorage first
+        window.localStorage.removeItem(this.id);
+        // Then try to remove the HTML 
+        // const taskHTML = document.getElementById(`${this.id}-task`);
+        const taskHTML = e.currentTarget.parentElement;
+        console.log(taskHTML)
         if (taskHTML == null)
             return;
         taskHTML.remove();
-        window.localStorage.removeItem(this.id);
     }
     render() {
         let taskHTML = document.createElement("li");
@@ -41,12 +47,18 @@ class Task {
         taskHTML.classList.add("todo-item");
         taskHTML.classList.add("box");
         taskHTML.innerHTML = `
-            <input type="checkbox" class="todo-check"${this.completed ? "checked" : ""}>
+            <input type="checkbox" id="${this.id}-check" class="todo-check"${this.completed ? "checked" : ""}>
             (${this.id})<span class="todo-name">${this.name}</span>
-            <button class="todo-delete">X</button>
+            <button id="${this.id}-delete" class="todo-delete">X</button>
         `;
-
         return taskHTML;
+    }
+    /**
+     * Adds event listeners for all appropriate actions for this object.
+     */
+    registerCallbacks() {
+        let deleteButton = document.getElementById(`${this.id}-delete`);
+        deleteButton.addEventListener('click', this.delete);
     }
 }
 
@@ -105,9 +117,12 @@ export class TaskList {
             const newObject = JSON.parse(storageItem);
             console.log(newObject);
             // TODO null checking here
-            const newTask = Task.loadFromObject(newObject);
-            this.tasks.push(newTask);
+            if (newObject !== null){
+                const newTask = Task.loadFromObject(newObject);
+                this.tasks.push(newTask);
+            }
         });
+        // console.log(`\n\n    Loaded tasks:    ${this.tasks}`);
     }
     renderTaskList() {
         let taskListHTML = document.createElement("ul");
@@ -117,5 +132,10 @@ export class TaskList {
             taskListHTML.appendChild(task.render())
         })
         return taskListHTML;
+    }
+    registerCallbacks() {
+        this.tasks.forEach((task) =>{
+            task.registerCallbacks();
+        });
     }
 }
