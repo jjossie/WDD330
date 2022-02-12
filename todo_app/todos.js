@@ -1,14 +1,20 @@
+const TASK_LIST_KEY = "tasks";
+const ADD_BUTTON_ID = "add-todo__button";
+const ADD_TEXT_ID = "add-todo__text";
+
 export class Task {
     static nextId = 0;
     constructor(name) {
         this.id = ++Task.nextId;
         this.name = name;
         this.completed = false;
-        this.save();
+        this.htmlId = `${this.id}-task`;
+        this.deleteButtonId = `${this.id}-delete`;
+        this.checkBoxId = `${this.id}-check`;
     }
     static loadFromObject(simpleObject) {
         // TODO null checking here
-        if (simpleObject === null){
+        if (simpleObject === null) {
             return;
         }
         var newTask = new Task();
@@ -17,48 +23,28 @@ export class Task {
         newTask.completed = simpleObject.completed;
         return newTask;
     }
-    complete() {
-        this.completed = true;
-        this.save();
-    }
-    incomplete() {
-        this.completed = false;
-        this.save();
-    }
-    save() {
-        let storage = window.localStorage;
-        storage.setItem(this.id, JSON.stringify(this));
-    }
-    delete(e) {
-        console.log(`deleting ${this.id}-task`);
-        // Delete it from localStorage first
-        window.localStorage.removeItem(this.id);
-        // Then try to remove the HTML 
-        // const taskHTML = document.getElementById(`${this.id}-task`);
-        const taskHTML = e.currentTarget.parentElement;
-        console.log(taskHTML)
+    // save() {
+    //     let storage = window.localStorage;
+    //     storage.setItem(this.id, JSON.stringify(this));
+    // }
+    unrender() {
+        // Delete this task's HTML element
+        const taskHTML = document.getElementById(this.htmlId);
         if (taskHTML == null)
             return;
         taskHTML.remove();
     }
     render() {
         let taskHTML = document.createElement("li");
-        taskHTML.id = `${this.id}-task`;
+        taskHTML.id = this.htmlId;
         taskHTML.classList.add("todo-item");
         taskHTML.classList.add("box");
         taskHTML.innerHTML = `
-            <input type="checkbox" id="${this.id}-check" class="todo-check"${this.completed ? "checked" : ""}>
+            <input type="checkbox" id="${this.checkBoxId}" class="todo-check"${this.completed ? "checked" : ""}>
             (${this.id})<span class="todo-name">${this.name}</span>
-            <button id="${this.id}-delete" class="todo-delete">X</button>
+            <button id="${this.deleteButtonId}" class="todo-delete">X</button>
         `;
         return taskHTML;
-    }
-    /**
-     * Adds event listeners for all appropriate actions for this object.
-     */
-    registerCallbacks() {
-        let deleteButton = document.getElementById(`${this.id}-delete`);
-        deleteButton.addEventListener('click', this.delete);
     }
 }
 
@@ -74,68 +60,57 @@ export class TaskList {
     addTask(name) {
         let task = new Task(name);
         this.tasks.push(task);
-        task.save();
+        this.#saveToStorage();
     }
-    /**
-     * Finds a task with a given ID and removes it both from this 
-     * TaskList and from localStorage.
-     * @param {*} id the ID of the task to be removed
-     */
-    deleteTask(id) {
-        let task = this.tasks.find((task) => {
-            console.log(`looking for ${id} - task id: ${task.id}`);
-            return task.id === id;
+
+    deleteTask(task) {
+        // Remove from the display
+        task.unrender();
+        // Remove from storage
+        this.tasks = this.tasks.filter((item) => {
+            return item.id != task.id;
         });
-        if (task == null){
-            return;
-        }
-        task.delete();
-        // JavaScript doesn't include a function to remove a specific item from a pushed array, apparently, so:
-        let taskIndex = this.tasks.indexOf(task);
-        this.tasks.splice(taskIndex, 1);
-        // Remove this ID from the list of IDs so we don't try to load it again
-        let idIndex = this.taskIds.indexOf(id);
-        this.taskIds.splice(idIndex, 1);
+        this.#saveToStorage();
     }
-    saveToStorage() {
-        let storage = window.localStorage;
-        this.tasks.forEach((task) => {
-            task.save();
-            this.taskIds.push(task.id);
+    #saveToStorage() {
+        window.localStorage.setItem(TASK_LIST_KEY, JSON.stringify(this.tasks));
+    }
+    #loadFromStorage() {
+        let taskObjectArray = JSON.parse(window.localStorage.getItem(TASK_LIST_KEY));
+        this.tasks = taskObjectArray.map((simpleObject) =>{
+            return Task.loadFromObject(simpleObject);
         });
-        storage.setItem("taskIds", JSON.stringify(this.taskIds));
     }
-    loadFromStorage() {
-        let storage = window.localStorage;
-        let item = storage.getItem("taskIds");
-        console.log(item);
-        this.taskIds = JSON.parse(item);
-        this.tasks = [];
-        this.taskIds.forEach((id) => {
-            const storageItem = storage.getItem(id);
-            console.log(`storageItem: ${storageItem}`);
-            const newObject = JSON.parse(storageItem);
-            console.log(newObject);
-            // TODO null checking here
-            if (newObject !== null){
-                const newTask = Task.loadFromObject(newObject);
-                this.tasks.push(newTask);
-            }
-        });
-        // console.log(`\n\n    Loaded tasks:    ${this.tasks}`);
+    getNumberTasksLeft(){
+        return this.tasks.reduce((acc, task) =>{
+            return acc + (!task.completed) ? 1 : 0;
+        }, 0);
     }
-    renderTaskList() {
-        let taskListHTML = document.createElement("ul");
-        taskListHTML.id = "todo-item-list";
+    renderTaskList(parentElement) {
+        this.#loadFromStorage();
         this.tasks.forEach((task) => {
             // TODO null checking here
-            taskListHTML.appendChild(task.render())
+            console.log(task);
+            parentElement.appendChild(task.render());
         })
-        return taskListHTML;
     }
     registerCallbacks() {
-        this.tasks.forEach((task) =>{
-            task.registerCallbacks();
+        this.tasks.forEach((task) => {
+            let deleteButton = document.getElementById(task.deleteButtonId);
+            console.log(task.deleteButtonId);
+            console.log(deleteButton);
+            deleteButton.addEventListener('click', () => {
+                this.deleteTask(task);
+            });
+            let checkbox = document.getElementById(task.checkBoxId);
+            checkbox.addEventListener('change', () =>{
+                task.completed = !task.completed;
+                this.#saveToStorage();
+            });
+        });
+        document.getElementById(ADD_BUTTON_ID).addEventListener('click', () =>{
+            let taskName = document.getElementById(ADD_TEXT_ID).value;
+            this.addTask(taskName);
         });
     }
 }
