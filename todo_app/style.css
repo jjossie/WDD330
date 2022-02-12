@@ -10,8 +10,11 @@ h1{
 
 #content{
     /* width: 100%; */
-    padding-left: 150px;
-    padding-right: 150px;
+    /* padding-left: 150px;
+    padding-right: 150px; */
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
     padding-top: 50px;
 }
 
@@ -31,6 +34,8 @@ h1{
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 20px;
+    background-color:azure;
+
 }
 
 #todo-item-list{
@@ -42,6 +47,11 @@ h1{
     display: block;
     margin: 10px;
     padding: 15px;
+    background-color: white;
+}
+
+.todo-completed{
+    text-decoration: line-through;
 }
 
 .todo-check {
@@ -67,18 +77,23 @@ h1{
 }
 
 #add-todo{
+
+    background-color:azure;
+    border-radius: 15px;
     position: fixed;
-    width: fit-content;
-    bottom: 16px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 80%;
+    bottom: 20px;
 }
 #add-todo>form{
     display: flex;
+    margin: 10px;
 }
 #add-todo__text{
-    flex-grow:5;
+    flex-grow:3;
+    margin: 10px;
 }
 #add-todo__button{
-    flex-grow:1;
+    margin: 10px;
+    float:right;
+    align-self: flex-end;
 }

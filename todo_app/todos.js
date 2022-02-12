@@ -23,13 +23,9 @@ export class Task {
         newTask.completed = simpleObject.completed;
         return newTask;
     }
-    // save() {
-    //     let storage = window.localStorage;
-    //     storage.setItem(this.id, JSON.stringify(this));
-    // }
     unrender() {
         // Delete this task's HTML element
-        const taskHTML = document.getElementById(this.htmlId);
+        const taskHTML = this.getHTML();
         if (taskHTML == null)
             return;
         taskHTML.remove();
@@ -39,12 +35,18 @@ export class Task {
         taskHTML.id = this.htmlId;
         taskHTML.classList.add("todo-item");
         taskHTML.classList.add("box");
+        if (this.completed){
+            taskHTML.classList.add("todo-completed");
+        }
         taskHTML.innerHTML = `
             <input type="checkbox" id="${this.checkBoxId}" class="todo-check"${this.completed ? "checked" : ""}>
             (${this.id})<span class="todo-name">${this.name}</span>
             <button id="${this.deleteButtonId}" class="todo-delete">X</button>
         `;
         return taskHTML;
+    }
+    getHTML(){
+        return document.getElementById(this.htmlId);
     }
 }
 
@@ -86,13 +88,23 @@ export class TaskList {
             return acc + (!task.completed) ? 1 : 0;
         }, 0);
     }
-    renderTaskList(parentElement) {
+    renderTaskList(parentElement, filter) {
+        parentElement.innerHTML = "";
         this.#loadFromStorage();
-        this.tasks.forEach((task) => {
-            // TODO null checking here
-            console.log(task);
-            parentElement.appendChild(task.render());
+        this.tasks
+        .filter((task) => {
+            if (filter == 'all')
+                return true;
+            else if (filter == 'active')
+                return !task.completed;
+            else if (filter == 'completed')
+                return task.completed;
+            else
+                return true;
         })
+        .forEach((task) => {
+            parentElement.appendChild(task.render());
+        });
     }
     registerCallbacks() {
         this.tasks.forEach((task) => {
@@ -105,6 +117,8 @@ export class TaskList {
             let checkbox = document.getElementById(task.checkBoxId);
             checkbox.addEventListener('change', () =>{
                 task.completed = !task.completed;
+                let html = document.getElementById(task.htmlId);
+                html.classList.toggle("todo-completed");
                 this.#saveToStorage();
             });
         });
