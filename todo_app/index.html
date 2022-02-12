@@ -12,21 +12,7 @@
         <h1>To-Dos</h1>
         <div id="todo-list" class="box">
             <ul id="todo-item-list">
-                <li class="todo-item box">
-                    <input type="checkbox" class="todo-check">
-                    <span class="todo-name">Task One</span>
-                    <button class="todo-delete">X</button>
-                </li>
-                <li class="todo-item box">
-                    <input type="checkbox" class="todo-check">
-                    <span class="todo-name">Task Two</span>
-                    <button class="todo-delete">X</button>
-                </li>
-                <li class="todo-item box">
-                    <input type="checkbox" class="todo-check">
-                    <span class="todo-name">Task Three</span>
-                    <button class="todo-delete">X</button>
-                </li>
+
             </ul>
             <div id="todo-list-footer">
                 <span class="todo-list-footer__desc">3 tasks left</span>
@@ -37,10 +23,12 @@
         </div>
         <div id="add-todo">
             <form>
-                <input type="text" name="add-todo-text" id="add-todo-text">
-                <button type="submit">+</button>
+                <input type="text" name="add-todo-text" id="add-todo__text">
+                <button type="submit" id="add-todo__button">+</button>
             </form>
         </div>
     </div>
+
+    <script src="main.js" type="module"></script>
 </body>
 </html>
