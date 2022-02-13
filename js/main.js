@@ -27,12 +27,15 @@ const links = [
         label: "Week 5 Exercises",
         url: "week5/exercises.html"
     },
+    {
+        label: "To-Do List App",
+        url: "todo_app/index.html"
+    }
 ]
 
 function populateLinks(){
     let linkList = document.getElementById("linkList");
     links.forEach(link => {
-        // linkList.innerHTML += "<li class='portfolioLink'>" + link.label + "</li>";
         linkList.innerHTML += `<li class='portfolioLink'><a href='${link.url}'>${link.label}</a></li>`;
     });
 }
