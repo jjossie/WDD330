@@ -23,6 +23,6 @@ window.addEventListener('load', (event) => {
 
 function refresh(filter){
     taskList.renderTaskList(todoUlElement, filter);
-    taskList.registerCallbacks();
+    taskList.registerCallbacks(filter);
 }
     
