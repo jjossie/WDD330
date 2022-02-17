@@ -15,6 +15,7 @@ h1{
     margin-left: auto;
     margin-right: auto;
     padding-top: 50px;
+    padding-bottom: 100px;
 }
 
 .box{
@@ -100,4 +101,13 @@ h1{
     align-self: flex-end;
     font-weight: 500;
     font-size: 16pt;
+}
+
+#all-done{
+    font-size: 12pt;
+    font-weight: 300;
+    font-style: italic;
+    text-align:center;
+    display:none;
+    color:grey;
 }

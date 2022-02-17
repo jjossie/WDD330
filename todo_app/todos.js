@@ -3,15 +3,14 @@ const ADD_BUTTON_ID = "add-todo__button";
 const ADD_TEXT_ID = "add-todo__text";
 
 export class Task {
-    static nextId = 0;
     constructor(name) {
-        this.id = ++TaskList.nextId;
+        this.id = Date.now() * Math.floor(Math.random() * 100);
         this.name = name;
         this.completed = false;
         this.htmlId = `${this.id}-task`;
         this.deleteButtonId = `${this.id}-delete`;
         this.checkBoxId = `${this.id}-check`;
-        console.log(TaskList.nextId);  
+        console.log("Task created with id " + this.id)
     }
     static loadFromObject(simpleObject) {
         // TODO null checking here
@@ -52,7 +51,7 @@ export class Task {
 }
 
 export class TaskList {
-    static nextId = 0;
+    // static nextId = 0;
 
     constructor() {
         this.tasks = [];
@@ -82,23 +81,20 @@ export class TaskList {
 
     #saveToStorage() {
         window.localStorage.setItem(TASK_LIST_KEY, JSON.stringify(this.tasks));
-        window.localStorage.setItem("nextId", TaskList.nextId);
     }
 
     #loadFromStorage() {
         let taskObjectArray = JSON.parse(window.localStorage.getItem(TASK_LIST_KEY));
-        if (taskObjectArray != null){
+        if (taskObjectArray != null) {
             this.tasks = taskObjectArray.map((simpleObject) => {
                 return Task.loadFromObject(simpleObject);
             });
         }
-        const nextId = window.localStorage.getItem("nextId");
-        TaskList.nextId = (nextId != null) ? nextId : 0;
     }
 
     getNumberTasksLeft() {
         return this.tasks.reduce((acc, task) => {
-            return acc + (!task.completed) ? 1 : 0;
+            return acc + ((!task.completed) ? 1 : 0);
         }, 0);
     }
 
@@ -131,6 +127,7 @@ export class TaskList {
                 let deleteButton = document.getElementById(task.deleteButtonId);
                 deleteButton.addEventListener('click', () => {
                     this.deleteTask(task);
+                    this.refreshRemainingTaskCount();
                 });
                 let checkbox = document.getElementById(task.checkBoxId);
                 checkbox.addEventListener('change', () => {
@@ -138,11 +135,23 @@ export class TaskList {
                     let html = document.getElementById(task.htmlId);
                     html.classList.toggle("todo-completed");
                     this.#saveToStorage();
+                    this.refreshRemainingTaskCount();
                 });
             });
         document.getElementById(ADD_BUTTON_ID).addEventListener('click', () => {
             let taskName = document.getElementById(ADD_TEXT_ID).value;
             this.addTask(taskName);
+            this.refreshRemainingTaskCount();
         });
+    }
+
+    refreshRemainingTaskCount() {
+        const remaining = this.getNumberTasksLeft();
+        if (remaining == 0){
+            document.getElementById("all-done").style = "display: block";
+        } else {
+            document.getElementsByClassName("todo-list-footer__desc")[0].innerHTML = `${remaining} tasks left`;
+            document.getElementById("all-done").style = "display: none";
+        }
     }
 }
