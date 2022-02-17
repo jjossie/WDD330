@@ -87,10 +87,13 @@ export class TaskList {
 
     #loadFromStorage() {
         let taskObjectArray = JSON.parse(window.localStorage.getItem(TASK_LIST_KEY));
-        this.tasks = taskObjectArray.map((simpleObject) => {
-            return Task.loadFromObject(simpleObject);
-        });
-        TaskList.nextId = window.localStorage.getItem("nextId");
+        if (taskObjectArray != null){
+            this.tasks = taskObjectArray.map((simpleObject) => {
+                return Task.loadFromObject(simpleObject);
+            });
+        }
+        const nextId = window.localStorage.getItem("nextId");
+        TaskList.nextId = (nextId != null) ? nextId : 0;
     }
 
     getNumberTasksLeft() {
