@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+
+        .mainDiv{ 
+            width: 95%;
+        }
+
+        @keyframes popOut {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes flash {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            40%,
+            60% {
+                opacity: 1;
+            }
+        }
+
+        h3 span {
+            display: inline-block;
+            /* transition: all 0.2s ease 50ms; */
+            transition-property: all;
+            transition-duration: 0.2s;
+            transition-timing-function: ease;
+            transition-delay: 60ms;
+        }
+
+        h3:hover>span {
+            color: white;
+            transform: scale(1.5) translateY(10px);
+            background-color: darkseagreen;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        h4 {
+            opacity: 0;
+        }
+
+        .mainDiv:hover>h4 {
+            /* animation-fill-mode: both; */
+            animation-name: flash;
+            animation-duration: 450ms;
+        }
+
+
+        .myCanvas {
+            border: dotted 2px black;
+        }
+
+    </style>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="mainDiv">
+        <h3>Hover over me to make <span>this</span> do some crazy stuff</h3>
+        <h4>ooga booga</h4>
+        <em>by the way this image down here repeats:</em>
+        <canvas id="myCanvas" class="myCanvas" width="900" height="550"></canvas>
+    </div>
+
+    <script src="canvas.js"></script>
+</body>
+
+</html>
