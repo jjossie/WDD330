@@ -1,0 +1,39 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../css/style.css">
+     <title>Document</title>
+ </head>
+
+ <body>
+     <div class="mainDiv">
+         <h1>Week 9 Notes</h1>
+         <h2>Chapter 14</h2>
+         <ul>
+             <li>HTML5 introduced important features like the <code>data-</code> attribute and APIs for things like
+                 localStorage, geolocation, multimedia, and web workers.</li>
+             <h3>The <code>data-</code> attribute</h3>
+             <li>An HTML tag can have attributes that start with "data-" which can be used to store data within an HTML
+                 element purely for Javascript.</li>
+             <li>Ignored by the browser</li>
+             <li>A data attribute "data-key" could be accesesed either using <code>element.dataset.key</code> (notice
+                 how "data-" is omitted) or <code>element.getAttribute("data-key")</code></li>
+             <li>Hyphens would be replaced with camel case, so "data-max-length" becomes "maxLength" when accessed
+                 through <code>element.dataset.maxLength</code></li>
+             <h3>Storage</h3>
+             <li>LocalStorage lasts between refreshes and opening/closing the browser while SessionStorage resets
+                 between sessions.</li>
+             <li>LocalStorage items can be accessed either using <code>localStorage.setItem("key", "value")</code> or
+                 <code>localStorage.key = "value"</code></li>
+             <h3>HTML APIs</h3>
+                <li>geolocation can be accessed using the <code>navigator.geolocation</code> object</li>
+         </ul>
+
+     </div>
+ </body>
+
+ </html>
