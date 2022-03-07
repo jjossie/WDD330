@@ -30,7 +30,13 @@
              <li>LocalStorage items can be accessed either using <code>localStorage.setItem("key", "value")</code> or
                  <code>localStorage.key = "value"</code></li>
              <h3>HTML APIs</h3>
-                <li>geolocation can be accessed using the <code>navigator.geolocation</code> object</li>
+             <li>geolocation can be accessed using the <code>navigator.geolocation</code> object</li>
+             <li><code>geolocation.getCurrentPosition(callback)</code> gives a location position object to a callback
+                 passed in</li>
+             <li>Position has properties like speed, altitude, heading, and most importantly, coordinates. It also even
+                 has the accuracy of said coordinates.</li>
+             <li>it also has a method called watchPosition() that takes a callback that will run everytime the position
+                 is updated.</li>
          </ul>
 
      </div>
