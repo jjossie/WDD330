@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../css/style.css">
+     <title>Week 10 Notes</title>
+ </head>
+
+ <body>
+     <div class="mainDiv">
+         <h1>Week 10 Notes</h1>
+         <h2>Client-Side Form Validation</h2>
+
+         <ul>
+             <li>
+                 Client-Side validation happens to provide a good user experience, but
+                 doesn't guarantee that there won't ever be bad data passed to the server.
+                 For that you need server-side validation.
+             </li>
+             <li>
+                 Inputs that are valid based on HTML built-in validation like <code>min/max</code>
+                 and <code>type</code> automatically have the css <code>:valid</code> pseudoclass
+                 or <code>:invalid</code> if not.
+             </li>
+             <li><code>pattern</code> lets you match a regular expression to validate.</li>
+             <li>The Constraint Validation API lets you access the details of HTML validation from javascript.</li>
+             <li>
+                 It provides objects like <code>HTMLInputElement</code> which has a <code>validity</code> property which is
+                 a <code>ValidityState</code> object with properties like <code>tooLong</code> or <code>rangeOverflow</code>.
+             </li>
+         </ul>
+         
+         <h2>Using the Fetch API</h2>
+         <ul>
+             <li>
+                 <code>fetch</code> will resolve every time it gets an HTTPResponse back. Even if it's an error like 404.
+                 the <code>status.ok</code>/ will be false, but it won't default to the <code>.catch</code> on the promise unless you throw the error yourself.
+             </li>
+         </ul>
+
+     </div>
+ </body>
+
+ </html>
