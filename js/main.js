@@ -46,6 +46,10 @@ const links = [
     {
         label: "Week 10 Notes",
         url: "week10/exercises.html"
+    }, 
+    {
+        label: "Final Project / Challenge Two (HangApp)",
+        url: "hang_app/presentation.html"
     }
 ]
 
